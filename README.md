@@ -20,7 +20,7 @@ A
 - Axios
 - ExpressJs
 - dotEnv
-- cors
+- Cors
 
 ## Change Log
 
@@ -56,51 +56,3 @@ How can you best utilize these strengths in the development of your application?
 In what areas do you each want to develop greater strength?
 
 Knowing that every person in your team needs to understand the code, how do you plan to approach the day-to-day development?
-
-## Time Estimates
-
-Name of feature: #1 storage.
-
-Estimate of time needed to complete: 2 hours
-
-Start time: 1:45
-
-Finish time: 4:00
-
-Actual time needed to complete: 2 hrs and 15 min.
-
----
-
-Name of feature: #2 Create.
-
-Estimate of time needed to complete: 2 hours
-
-Start time: 3:15
-
-Finish time: 5:15
-
-Actual time needed to complete: 2 hrs.
-
----
-
-Name of feature: #3 Delete.
-
-Estimate of time needed to complete: 3 hours
-
-Start time: 6:00
-
-Finish time: 10:00
-
-Actual time needed to complete: 4 hrs
-
----
-
-Name of feature: #4 Update.
-
-Estimate of time needed to complete: 3 hours
-
-Start time: 9:00
-
-Finish time: 10:00
-
-Actual time needed to complete: 1 hr
