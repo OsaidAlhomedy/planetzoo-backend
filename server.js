@@ -178,12 +178,40 @@ server.get("/location", async (req, res) => {
 server.get("/blog", async (req, res) => {
   blogModel.find({}, (error, result) => {
     if (error || result.length == 0) {
-      res.status(404), send(`No blogs found , ${error}`);
+      res.status(404). send(`No blogs found , ${error}`);
     } else {
       res.status(200).send(result);
     }
   });
 });
+
+// http://localhost:3010/Blog
+server.post(`/blog` , async (req, res) => {
+  console.log(req.body);
+  const {title, headline, article } = req.body;
+  blogModel.insertMany({
+    title: title,
+    headline: headline,
+    article : article
+  }
+  
+);
+blogModel.find({},(error,result)=>{
+  if (error || result.length == 0) {
+    res.status (404). send(`No blogs found , ${error}`);
+
+  }else {
+    res.status(200).send(result);
+
+  }
+})
+    
+
+  
+
+})
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
