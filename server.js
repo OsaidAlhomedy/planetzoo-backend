@@ -187,7 +187,6 @@ server.get("/blog", async (req, res) => {
 
 // http://localhost:3010/Blog
 server.post(`/blog` , async (req, res) => {
-  console.log(req.body);
   const {title, headline, article } = req.body;
   blogModel.insertMany({
     title: title,
