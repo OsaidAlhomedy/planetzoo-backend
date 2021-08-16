@@ -147,6 +147,7 @@ server.get("/test", (req, res) => {
 // http://localhost:3010/fact
 server.get("/fact", async (req, res) => {
   const name = req.query.name;
+  console.log(name);
   const url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${name}`;
   await axios
     .get(url)
