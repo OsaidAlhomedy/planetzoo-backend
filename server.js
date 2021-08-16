@@ -20,7 +20,7 @@ const Blogs = new mongoose.Schema({
   headline: String,
   img: String,
   article: String,
-  approval: {type : Boolean , default : false}
+  approval: { type: Boolean, default: false },
 });
 
 const Animals = new mongoose.Schema({
@@ -178,7 +178,7 @@ server.get("/location", async (req, res) => {
 server.get("/blog", async (req, res) => {
   blogModel.find({}, (error, result) => {
     if (error || result.length == 0) {
-      res.status(404). send(`No blogs found , ${error}`);
+      res.status(404).send(`No blogs found , ${error}`);
     } else {
       res.status(200).send(result);
     }
@@ -186,31 +186,22 @@ server.get("/blog", async (req, res) => {
 });
 
 // http://localhost:3010/Blog
-server.post(`/blog` , async (req, res) => {
-  const {title, headline, article } = req.body;
+server.post(`/blog`, async (req, res) => {
+  const { title, headline, article, img } = req.body;
   blogModel.insertMany({
     title: title,
     headline: headline,
-    article : article
-  }
-  
-);
-blogModel.find({},(error,result)=>{
-  if (error || result.length == 0) {
-    res.status (404). send(`No blogs found , ${error}`);
-
-  }else {
-    res.status(200).send(result);
-
-  }
-})
-    
-
-  
-
-})
-
-
+    article: article,
+    img: img,
+  });
+  blogModel.find({}, (error, result) => {
+    if (error || result.length == 0) {
+      res.status(404).send(`No blogs found , ${error}`);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
