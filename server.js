@@ -261,6 +261,7 @@ server.get("/getAnimal", async (req, res) => {
   });
 });
 
+// http://localhost:3010/updateAnimal
 server.put(`/updateAnimal/:id`, async (req, res) => {
   const id = req.params.id;
   console.log(req);
