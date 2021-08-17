@@ -34,14 +34,7 @@ const GivenAnimals = new mongoose.Schema({
   givenBy: { type: String, default: "anonymous" },
   userEmail: String,
   adoptionStatus: { type: Boolean, default: false },
-});
-
-const AdoptionAnimals = new mongoose.Schema({
-  name: String,
-  breed: String,
-  age: Number,
-  description: String,
-  status: { type: Boolean, default: false },
+  adoptedBy: { type: String, default: "anonymous" },
 });
 
 const User = new mongoose.Schema({
@@ -50,15 +43,11 @@ const User = new mongoose.Schema({
   country: String,
   role: { type: String, default: "user" },
   blogs: [Blogs],
-  givenUp: [GivenAnimals],
-  adopted: [AdoptionAnimals],
 });
 
 const userModel = mongoose.model("user", User);
 const blogModel = mongoose.model("blog", Blogs);
 const animalModel = mongoose.model("givenAnimal", GivenAnimals);
-
-// blogModel.insertMany({title:})
 
 seedFunc = () => {
   const newUser1 = new userModel({
@@ -274,6 +263,26 @@ server.put(`/updateAnimal/:id`, async (req, res) => {
       breed: petBreed,
       age: petAge,
       description: petDesc,
+    }
+  );
+  animalModel.find({}, (error, result) => {
+    if (error || result.length == 0) {
+      res.status(404).send(`No animals found , ${error}`);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
+// http://localhost:3010/updateAdoptedAnimal
+server.put(`/updateAdoptedAnimal/:id`, async (req, res) => {
+  const id = req.params.id;
+  const { adoptName } = req.body;
+  await animalModel.updateOne(
+    { _id: id },
+    {
+      adoptionStatus: true,
+      adoptedBy: adoptName,
     }
   );
   animalModel.find({}, (error, result) => {
