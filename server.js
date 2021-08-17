@@ -20,26 +20,26 @@ const Blogs = new mongoose.Schema({
   headline: String,
   img: String,
   article: String,
+  writtenBy: { type: String, default: "admin" },
   approval: { type: Boolean, default: false },
 });
+
 
 const Checker= new mongoose.Schema({
   checkerData: Array ,
 })
 
-const Animals = new mongoose.Schema({
+const GivenAnimals = new mongoose.Schema({
   name: String,
+  type: String,
   breed: String,
-  age: Number,
+  age: String,
+  img: String,
   description: String,
-});
-
-const AdoptionAnimals = new mongoose.Schema({
-  name: String,
-  breed: String,
-  age: Number,
-  description: String,
-  status: { type: Boolean, default: false },
+  givenBy: { type: String, default: "anonymous" },
+  userEmail: String,
+  adoptionStatus: { type: Boolean, default: false },
+  adoptedBy: { type: String, default: "anonymous" },
 });
 
 const User = new mongoose.Schema({
@@ -48,14 +48,13 @@ const User = new mongoose.Schema({
   country: String,
   role: { type: String, default: "user" },
   blogs: [Blogs],
-  givenUp: [Animals],
-  adopted: [AdoptionAnimals],
 });
 
 const userModel = mongoose.model("user", User);
 const blogModel = mongoose.model("blog", Blogs);
 const checkerModel = mongoose.model("checker",Checker)
-// blogModel.insertMany({title:})
+const animalModel = mongoose.model("givenAnimal", GivenAnimals);
+
 
 seedFunction =() =>{
 
@@ -220,60 +219,102 @@ server.post(`/blog`, async (req, res) => {
 });
 
 
+// http://localhost:3010/addAnimal
+server.post(`/addAnimal`, async (req, res) => {
+  const {
+    petName,
+    petType,
+    petBreed,
+    petAge,
+    petDesc,
+    petImg,
+    userName,
+    userEmail,
+  } = req.body;
+  animalModel.insertMany({
+    name: petName,
+    type: petType,
+    breed: petBreed,
+    age: petAge,
+    description: petDesc,
+    img: petImg,
+    givenBy: userName,
+    userEmail: userEmail,
+  });
+  animalModel.find({}, (error, result) => {
+    if (error || result.length == 0) {
+      res.status(404).send(`No animals found , ${error}`);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// http://localhost:3010/user
-server.get("/user", async (req, res) => {
-  const name = req.query.name;
+// http://localhost:3010/deleteAnimal
+server.delete(`/deleteAnimal/:id`, async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  await animalModel.deleteOne({ _id: id });
+  res.status(200).send("animal deleted");
+});
+
+// http://localhost:3010/getAnimal
+server.get("/getAnimal", async (req, res) => {
   const email = req.query.email;
-  const country = req.query.country;
+  animalModel.find({ userEmail: email }, (error, result) => {
+    if (error) {
+      res.status(404).send(`No Animals found , ${error}`);
+    } else {
+      res.status(200).send(result);
+    }
+  });
 });
 
-// http://localhost:3010/user
-server.post("/user", async (req, res) => {
-  const name = req.query.name;
-  const url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${name}`;
-  await axios
-    .get(url)
-    .then((results) => {
-      res.status(200).send(results.data.query.pages);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).send(`Internal Server Error , ${error}`);
-    });
+// http://localhost:3010/updateAnimal
+server.put(`/updateAnimal/:id`, async (req, res) => {
+  const id = req.params.id;
+  console.log(req);
+  const { petName, petType, petBreed, petAge, petDesc } = req.body;
+  await animalModel.updateOne(
+    { _id: id },
+    {
+      name: petName,
+      type: petType,
+      breed: petBreed,
+      age: petAge,
+      description: petDesc,
+    }
+  );
+  animalModel.find({}, (error, result) => {
+    if (error || result.length == 0) {
+      res.status(404).send(`No animals found , ${error}`);
+    } else {
+      res.status(200).send(result);
+    }
+  });
 });
 
-// http://localhost:3010/user
-server.delete("/user", async (req, res) => {
-  const name = req.query.name;
-  const url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${name}`;
-  await axios
-    .get(url)
-    .then((results) => {
-      res.status(200).send(results.data.query.pages);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).send(`Internal Server Error , ${error}`);
-    });
+// http://localhost:3010/updateAdoptedAnimal
+server.put(`/updateAdoptedAnimal/:id`, async (req, res) => {
+  const id = req.params.id;
+  const { adoptName } = req.body;
+  await animalModel.updateOne(
+    { _id: id },
+    {
+      adoptionStatus: true,
+      adoptedBy: adoptName,
+    }
+  );
+  animalModel.find({}, (error, result) => {
+    if (error || result.length == 0) {
+      res.status(404).send(`No animals found , ${error}`);
+    } else {
+      res.status(200).send(result);
+    }
+  });
 });
 
-// http://localhost:3010/user
-server.put("/user", async (req, res) => {
-  const name = req.query.name;
-  const url = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${name}`;
-  await axios
-    .get(url)
-    .then((results) => {
-      res.status(200).send(results.data.query.pages);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).send(`Internal Server Error , ${error}`);
-    });
-});
 
 
 //http://localhost:3010/company
@@ -287,7 +328,6 @@ server.get("/company", async (req,res ) => {
     }
   })
 })
-
 
 
 
