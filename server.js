@@ -28,7 +28,10 @@ const Blogs = new mongoose.Schema({
 const Checker= new mongoose.Schema({
   checkerData: Array ,
 })
+const Review = new mongoose.Schema({
 
+  reviewData: String ,
+})
 const GivenAnimals = new mongoose.Schema({
   name: String,
   type: String,
@@ -54,6 +57,7 @@ const userModel = mongoose.model("user", User);
 const blogModel = mongoose.model("blog", Blogs);
 const checkerModel = mongoose.model("checker",Checker)
 const animalModel = mongoose.model("givenAnimal", GivenAnimals);
+const reviewModel = mongoose.model("review", Review);
 
 
 seedFunction =() =>{
@@ -67,6 +71,14 @@ seedFunction =() =>{
 
 // seedFunction()
 
+seedFunc2 =() => {
+const userReview = new reviewModel ({
+  reviewData : "awesome blogs keep it up",
+})
+userReview.save()
+}
+
+// seedFunc2()
 
 seedFunc = () => {
   const newUser1 = new userModel({
@@ -368,7 +380,34 @@ server.get("/company", async (req,res ) => {
   })
 })
 
+//////////////////////////////////
+// http://localhost:3010/reviews
+server.get("/reviews", async (req, res) => {
+  reviewModel.find({}, (error, result) => {
+    if (error || result.length == 0) {
+      res.status(404).send(`No blogs found , ${error}`);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
 
+// http://localhost:3010/reviews
+server.post(`/reviews`, async (req, res) => {
+  const  {reviewData} = req.body;
+  console.log(reviewData);
+  await reviewModel.insertMany({
+    reviewData: reviewData,
+  });
+  reviewModel.find({}, (error, result) => {
+    if (error || result.length == 0) {
+      res.status(404).send(`No reviews found , ${error}`);
+    } else {
+      console.log(result);
+      res.status(200).send(result);
+    }
+  });
+});
 
 
 
