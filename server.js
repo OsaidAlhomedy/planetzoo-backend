@@ -271,6 +271,17 @@ server.get("/getAnimal", async (req, res) => {
   });
 });
 
+// http://localhost:3010/getAnimalAdoption
+server.get("/getAnimalAdoption", async (req, res) => {
+  animalModel.find({}, (error, result) => {
+    if (error) {
+      res.status(404).send(`No Animals found , ${error}`);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
 // http://localhost:3010/updateAnimal
 server.put(`/updateAnimal/:id`, async (req, res) => {
   const id = req.params.id;
