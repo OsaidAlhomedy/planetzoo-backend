@@ -316,6 +316,45 @@ server.put(`/updateAdoptedAnimal/:id`, async (req, res) => {
 });
 
 
+// http://localhost:3010/filterAnimal
+server.get("/filterAnimal", async (req, res) => {
+  const { petType, petAge, petStatus } = req.query;
+  if (petType == "All") {
+    animalModel.find(
+      { age: petAge, adoptionStatus: petStatus },
+      (error, result) => {
+        if (error) {
+          res.status(404).send(`No Animals found , ${error}`);
+        } else {
+          res.status(200).send(result);
+        }
+      }
+    );
+  } else if (petAge == "All") {
+    animalModel.find(
+      { type: petType, adoptionStatus: petStatus },
+      (error, result) => {
+        if (error) {
+          res.status(404).send(`No Animals found , ${error}`);
+        } else {
+          res.status(200).send(result);
+        }
+      }
+    );
+  } else if (petStatus == "All") {
+    animalModel.find({ type: petType, age: petAge }, (error, result) => {
+      if (error) {
+        res.status(404).send(`No Animals found , ${error}`);
+      } else {
+        res.status(200).send(result);
+      }
+    });
+  }
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 //http://localhost:3010/company
 server.get("/company", async (req,res ) => {
@@ -328,6 +367,7 @@ server.get("/company", async (req,res ) => {
     }
   })
 })
+
 
 
 
