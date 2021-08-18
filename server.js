@@ -24,6 +24,11 @@ const Blogs = new mongoose.Schema({
   approval: { type: Boolean, default: false },
 });
 
+
+const Checker= new mongoose.Schema({
+  checkerData: Array ,
+})
+
 const GivenAnimals = new mongoose.Schema({
   name: String,
   type: String,
@@ -47,7 +52,21 @@ const User = new mongoose.Schema({
 
 const userModel = mongoose.model("user", User);
 const blogModel = mongoose.model("blog", Blogs);
+const checkerModel = mongoose.model("checker",Checker)
 const animalModel = mongoose.model("givenAnimal", GivenAnimals);
+
+
+seedFunction =() =>{
+
+  const userChecker =new checkerModel({
+    checkerData : ["3M"," Acuvue (Johnson & Johnson)"," Aim (Church & Dwight)"," Air Wick (Reckitt Benckiser)"," Algenist"," Almay (Revlon)"," Always (Procter & Gamble)"," Ambi (Johnson & Johnson)"," American Beauty (Estee Lauder)"," Anna Sui"," Aqua di Parma"," Aquafresh (GlaxoSmithKline)"," Aramis (Estee Lauder)"," Arm & Hammer (Church & Dwight)"," Arrid (Church & Dwight)"," Atelier Cologne"," Aveeno (Johnson & Johnson)"," Bain de Soleil (Bayer)"," Balenciaga"," Band-Aid (Johnson & Johnson)"," Bausch + Lomb (Valeant Pharmaceuticals)"," Beiersdorf"," Benefit Cosmetics"," BENGAY (Johnson & Johnson)"," Bic Corporation"," Biotene (GlaxoSmithKline)"," Biotherm (L’Oreal)"," Blue Buffalo"," Bobbi Brown (Estee Lauder)"," Bounce (Procter & Gamble)"," Bounty (Procter & Gamble)"," Braun (Procter & Gamble)"," Breathe Right (GlaxoSmithKline)"," Burberry"," BVLGARI parfums"," Cacharel (L’Oreal)"," Calgon Water Softener (Reckitt Benckiser)"," Calvin Klein Cosmetics"," Caudalie USA"," Inc."," Chapstick (Pfizer)"," Cheer (Procter & Gamble)"," Chloe"," Christina Aguilera Perfumes (Procter & Gamble)"," Church & Dwight (Arm & Hammer)"," Citre Shine (Henkel)"," Clairol (Coty)"," Clarins of Paris"," Clarisonic"," Clean & Clear (Johnson & Johnson)"," Clearasil (Reckitt Benckiser)"," Clinique (Estee Lauder)"," Clorox"," Close-up (Church & Dwight)"," Collistar"," Comet (Procter & Gamble)"," Command (3M)"," Condense Paris"," Coppertone (Bayer)"," Coty Inc."," Crest (Procter & Gamble)"," Davidoff"," Dawn (Procter & Gamble)"," Dial (Henkel)"," Diesel"," Dior"," DOLCE & GABBANA (Coty)"," Donna Karan (Estee Lauder)"," Downy (Procter & Gamble)"," Dr. Brandt’s Skincare"," Dr. Jart"," Dr. Scholl’s (Bayer)"," Drano (S.C. Johnson)"," Dry Idea (Henkel)"," DTRT"," Dunhill Fragrances (Procter & Gamble)"," Durex (Reckitt Benckiser)"," Easy-Off (Reckitt Benckiser)"," Eisenberg Paris"," Elie Saab"," Elizabeth Arden"," ELLEgirl"," Era (Procter & Gamble)"," Erborian"," Escada Fragrances (Coty)"," Estée Lauder"," Ever Clean (Clorox)"," Fantastik (S.C. Johnson)"," Febreze (Procter & Gamble)"," Fendi"," Finish (Reckitt Benckiser)"," Fixodent (Procter & Gamble)"," For Beloved One"," Formula 409 (Clorox)"," Fresh Step (Clorox)"," Gain (Procter & Gamble)"," Gatineau (Revlon)"," Gillette Co.(Procter & Gamble)"," Giorgio Armani (L’Oreal)"," Givenchy Inc."," Glad (Clorox)"," Glade (S.C. Johnson)"," GLAMGLOW"," Good Skin Labs (Estee Lauder)"," göt2b (Henkel)"," Grassroots (Estee Lauder)"," Green Works (Clorox)"," Gucci Fragrances (Coty)"," Guerlain"," Head & Shoulders (Procter & Gamble)"," Helena Rubinstein (L’Oreal)"," Hoyu"," Hugo Boss (Coty)"," Institut Esthederm"," Issey Miyake"," Ivory (Procter & Gamble)"," J.F. Lazartigue"," Jimmy Choo"," Jo Malone (Estee Lauder)"," Johnson & Johnson"," Johnson’s (Johnson & Johnson)"," Joy (Procter & Gamble)"," Jurlique Pure Skin Care"," Kaboom (Church & Dwight)"," Kao USA"," Kenzo Parfums"," Kerastase (L’Oreal)"," Kiehl’s (L’Oreal)"," Kose"," K.Y. (Johnson & Johnson)"," La Mer (Estee Lauder)"," Lab Series for Men (Estee Lauder)"," Lacoste Fragrances (Coty)"," Lancaster Beauty"," Lancôme (L’Oreal)"," Laneige"," Lanvin"," LaRoche Posay (L’Oreal)"," Leaders Cosmetics"," Liquid Plumr (Clorox)"," Listerine (Johnson & Johnson)"," L’Occitane"," L’Occitane"," Loewe"," L’Oreal USA"," Lubriderm (Johnson & Johnson)"," Lysol (Reckitt Benckiser)"," M.A.C. Cosmetics (Estee Lauder)"," Makeup Forever"," Marc Jacobs Fragrances"," Mary Kay"," Matrix (L’Oreal)"," Max Factor (Coty)"," Maybelline (L’Oreal)"," Mead"," Mediplorer"," Melaleuca"," Menard Cosmetics"," Mentadent (Church & Dwight)"," Merck"," Michael Kors (Estee Lauder)"," Missoni (Estee Lauder)"," Mitchum Deodorant (Revlon)"," miu miu"," Mizani (L’Oreal)"," Mont Blanc"," Mr. Clean (Procter & Gamble)"," My Trendy Kit"," Nair (Church & Dwight)"," Nars Cosmetics"," Natural Balance Pet Foods"," Inc."," Natural Instincts (Coty)"," Nature’s Source (SC Johnson)"," Neutrogena (Johnson & Johnson)"," New Dana Perfumes"," Nexcare (3M)"," Nice ‘n Easy (Coty)"," Nina Ricci (Puig)"," Nioxin (Coty)"," Nivea (Beiersdorf)"," Nu Skin International"," Off (S.C.Johnson)"," OGX (Organix)"," Ojon (Estee Lauder)"," Olay (Procter & Gamble)"," Old English (Reckitt Benckiser)"," Old Spice (Procter & Gamble)"," Oomph! (Clorox)"," Orange Glo (Church & Dwight)"," Oriflame USA"," Origins (Estee Lauder)"," Osiao (Estee Lauder)"," Oust (SC Johnson)"," OxiClean (Church & Dwight)"," Paco Rabanne (Puig)"," Pampers (Procter & Gamble)"," Pantene (Procter & Gamble)"," Pearl Drops (Church & Dwight)"," Pepsodent (Church & Dwight)"," Peter Thomas Roth"," Physique (Procter & Gamble)"," Phyto"," Pine-Sol (Clorox)"," Piz Buin (Johnson & Johnson)"," Pledge (S.C. Johnson)"," POLA Cosmetics"," Polident (GlaxoSmithKline)"," Post-It (3M)"," Prada (Puig)"," Procter & Gamble"," Pronamel (GlaxoSmithKline)"," Puffs (Procter & Gamble)"," Pure Heal’s"," Purex (Dial)"," Purpose (Johnson & Johnson)"," Raid (S.C. Johnson)"," Ralph Lauren Fragrances (L’oreal)"," Reach (Johnson & Johnson)"," Reckitt Benckiser"," Redken (L’Oreal)"," Rembrandt (Johnson & Johnson)"," Renuzit (Dial)"," Resolve (Reckitt Benckiser)"," Revlon"," Rid-X (Reckitt Benckiser)"," Right Guard (Henkel)"," Roberto Cavalli"," ROC (Johnson & Johnson)"," Rogaine (Johnson & Johnson)"," Rossi & Rossa"," Safeguard (Procter & Gamble)"," Salvatore Ferragamo"," Savlon (Johnson & Johnson)"," S.C. Johnson"," Schwarzkopf (Henkel)"," Scoop Away (Clorox)"," Scope (Procter & Gamble)"," Scotch (3M)"," Scotch-Brite (3M)"," Scotchgard (3M)"," Scrub Free (Church & Dwight)"," Scrubbing Bubbles (S.C. Johnson)"," Sebastian International"," Sebastian Professional (Coty)"," Sensodyne (GlaxoSmithKline)"," Sephora Cosmetics"," Shiseido Cosmetics"," Shout (S.C. Johnson)"," Shower to Shower (Johnson & Johnson)"," Shu Uemura"," Shu Uemura(L’Oreal)"," Sinful Colors (Revlon)"," SK-II (Procter & Gamble)"," Skin ID (Johnson & Johnson)"," SkinVitals"," Soft Scrub (Dial)"," SoftSheen (L’Oreal)"," S.O.S. (Clorox)"," Spray ’N Wash (Reckitt Benckiser)"," Swiffer (Procter & Gamble)"," Talika"," The History of Whoo"," Thermacare (Pfizer)"," Thursday Plantation"," Tide (Procter & Gamble)"," Tilex (Clorox)"," Tom Ford (Estee Lauder)"," Tommy Hilfiger (Estee Lauder)"," Tone (Henkel)"," Trend (Henkel)"," Trojan (Church & Dwight)"," Valentino"," Veet (Reckitt Benckiser)"," VELD’S Skincare"," Venus (Procter & Gamble)"," Vera Wang"," Versace"," Vichy (L’Oreal)"," Vicks (Procter & Gamble)"," Victoria’s Secret (L Brands)"," Vidal Sassoon (Coty)"," Viktor & Rolf (L’Oreal)"," Visine (Johnson & Johnson)"," Walgreens"," Wei Beauty"," Wella (Coty)"," Windex (S.C. Johnson)"," Woolite (Reckitt Benckiser)"," Xtra (Church & Dwight)"," Yves Rocher USA"," Zegna"," Zirh"," Zout (Henkel)"]
+
+  })
+  userChecker.save()
+}
+
+// seedFunction()
+
 
 seedFunc = () => {
   const newUser1 = new userModel({
@@ -199,6 +218,7 @@ server.post(`/blog`, async (req, res) => {
   });
 });
 
+
 // http://localhost:3010/addAnimal
 server.post(`/addAnimal`, async (req, res) => {
   const {
@@ -229,6 +249,7 @@ server.post(`/addAnimal`, async (req, res) => {
     }
   });
 });
+
 
 // http://localhost:3010/deleteAnimal
 server.delete(`/deleteAnimal/:id`, async (req, res) => {
@@ -294,6 +315,7 @@ server.put(`/updateAdoptedAnimal/:id`, async (req, res) => {
   });
 });
 
+
 // http://localhost:3010/filterAnimal
 server.get("/filterAnimal", async (req, res) => {
   const { petType, petAge, petStatus } = req.query;
@@ -332,4 +354,23 @@ server.get("/filterAnimal", async (req, res) => {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+//http://localhost:3010/company
+server.get("/company", async (req,res ) => {
+
+  checkerModel.find({}, (error,result) => {
+    if (error || result.length === 0) {
+      res.status(404).send(`No Companies found , ${error}`);
+    } else {
+      res.status(200).send(result);
+    }
+  })
+})
+
+
+
+
+
 server.listen(PORT, () => console.log(`listening on ${PORT}`));
+
