@@ -8,7 +8,7 @@ server.use(express.json());
 const axios = require("axios");
 const PORT = process.env.PORT;
 
-mongoose.connect(`${process.env.MONGO_URL}/users`, {
+mongoose.connect( process.env.MONGO_URL , {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
