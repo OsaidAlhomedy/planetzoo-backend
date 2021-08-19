@@ -24,10 +24,13 @@ const Blogs = new mongoose.Schema({
   approval: { type: Boolean, default: false },
 });
 
+const Checker = new mongoose.Schema({
+  checkerData: Array,
+});
 
 const Review = new mongoose.Schema({
-  reviewData: String ,
-})
+  reviewData: String,
+});
 
 const GivenAnimals = new mongoose.Schema({
   name: String,
@@ -360,15 +363,14 @@ seedFunction = () => {
 
 // seedFunction()
 
-seedFunc2 =() => {
-const userReview = new reviewModel ({
-  reviewData : "awesome blogs keep it up",
-})
-userReview.save()
-}
+seedFunc2 = () => {
+  const userReview = new reviewModel({
+    reviewData: "awesome blogs keep it up",
+  });
+  userReview.save();
+};
 
 // seedFunc2()
-
 
 seedFunc = () => {
   const newUser1 = new userModel({
@@ -672,9 +674,8 @@ server.get("/company", async (req, res) => {
     } else {
       res.status(200).send(result);
     }
-
-  })
-})
+  });
+});
 
 //////////////////////////////////
 // http://localhost:3010/reviews
@@ -690,11 +691,10 @@ server.get("/reviews", async (req, res) => {
 
 // http://localhost:3010/reviews
 server.post(`/reviews`, async (req, res) => {
-  const  {reviewData} = req.body;
+  const { reviewData } = req.body;
   console.log(reviewData);
   await reviewModel.insertMany({
     reviewData: reviewData,
-    
   });
   reviewModel.find({}, (error, result) => {
     if (error || result.length == 0) {
@@ -705,8 +705,6 @@ server.post(`/reviews`, async (req, res) => {
     }
   });
 });
-
-
 
 //http://localhost:3010/randomFact
 server.get("/randomFact", async (req, res) => {
