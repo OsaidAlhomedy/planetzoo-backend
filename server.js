@@ -398,6 +398,7 @@ server.post(`/reviews`, async (req, res) => {
   console.log(reviewData);
   await reviewModel.insertMany({
     reviewData: reviewData,
+    
   });
   reviewModel.find({}, (error, result) => {
     if (error || result.length == 0) {
